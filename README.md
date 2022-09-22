@@ -1,4 +1,5 @@
 # MarcaTexto-BE
+REST Api for MarcaTexto - An app that allows users to keep track of their readings
 
 # Environment vars
 This project uses the following environment variables:
