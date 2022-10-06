@@ -8,9 +8,9 @@ env_variables:
     DB_NAME: ${{ secrets.DB_NAME }}
     DB_USER: ${{ secrets.DB_USER }}
     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
     NODE_ENV: production
     HOST: 0.0.0.0
-    GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
 handlers:
 - url: /stylesheets
