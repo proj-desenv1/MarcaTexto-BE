@@ -1,0 +1,243 @@
+{
+    "openapi" : "3.0.0",
+    "info": {
+        "title": "Marca Texto",
+        "description": "Marca Texto Api Endpoints"
+    },
+    "version": "1.0.0",
+    "servers": [
+        {
+            "url" : "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        "/books": {
+            "get": {
+                "summary" : "Book Search",
+                "description" : "This route is responsable for fetching books from google books api",
+                "tags": ["Books"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "q",
+                        "required" : true,
+                        "description": "Book search query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    }
+                            
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/readings": {
+            "get": {
+                "summary" : "List readings",
+                "description" : "This route is responsible for fetching saved books separated by reading status",
+                "tags": ["Readings"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Readings"
+                                }
+                            }
+                        }
+
+                    }
+                }
+            },
+            "post": {
+                "summary" : "Insert a new reading",
+                "description" : "This route is responsible for inserting a new reading on user's book list with given status",
+                "tags": ["Readings"],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "bookId": {
+                                        "type": "integer",
+                                        "nullable": "true",
+                                        "description": "Book id on our database. If null, google id must be provided"
+                                    },
+                                    "googleId": {
+                                        "type": "string",
+                                        "nullable": "true",
+                                        "description": "Google id"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": ["Lendo", "Lido", "Quero ler"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book" : {
+                "type" : "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "nullable": "true",
+                        "description": "Book id our database"
+                    },
+                    "googleId": {
+                        "type": "string",
+                        "description": "Book id on google database"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Book title"
+                    },
+                    "author": {
+                        "type": "string",
+                        "description": "Book author"
+                    },
+                    "pageCount": {
+                        "type": "integer",
+                        "description": "Book page count"
+                    },
+                    "publisher": {
+                        "type": "string",
+                        "description": "Book publisher"
+                    },
+                    "imageUrl": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Book image url"
+                    }
+                }
+            },
+            "Readings": {
+                "type": "object",
+                "properties": {
+                    "reading": {
+                        "description": "Books that user is currently reading",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Reading"
+                        }
+                    },
+                    "read": {
+                        "description": "Books that user has read",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Reading"
+                        }
+                    },
+                    "wantsToRead": {
+                        "description": "Books that user wants to read",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Reading"
+                        }
+                    }
+                }
+            },
+            "Reading": {
+                "type": "object",
+                "properties": {
+                    "book": {
+                        "description": "Info about the book",
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "Book id",
+                                "type": "integer"
+                            },
+                            "googleId": {
+                                "description": "Book id on google api",
+                                "type": "string"
+                            },
+                            "title" : {
+                                "description": "Book title",
+                                "type": "string"
+                            },
+                            "author" : {
+                                "description": "Book author",
+                                "type": "string"
+                            },
+                            "pages" : {
+                                "description": "Book total page count",
+                                "type": "integer"
+                            },
+                            "publisher" : {
+                                "description": "Book publisher",
+                                "type": "string"
+                            },
+                            "imageUrl" : {
+                                "description": "Book image url",
+                                "type": "string",
+                                "optional": true
+                            },
+                            "rating" : {
+                                "description": "Book rating",
+                                "type": "integer",
+                                "optional": true
+                            }
+                        }
+                    },
+                    "readingStatus": {
+                        "description": "Info about book reading status",
+                        "type": "object",
+                        "properties": {
+                            "currentStatus": {
+                                "type": "string",
+                                "enum": ["Lendo", "Lido", "Quero ler"]
+                            },
+                            "initialPage": {
+                                "type": "integer",
+                                "optional": true
+                            },
+                            "currentPage": {
+                                "type": "integer",
+                                "optional": true
+                            },
+                            "readingTime": {
+                                "type": "string",
+                                "pattern": "^\\d{2}:\\d{2}:\\d{2}$"
+                            }
+                        }
+                    },
+                    "readingObservatios": {
+                        "description": "Additional information on the book",
+                        "type": "string",
+                        "optional": true
+                    }
+                }
+            }
+        }
+    }
+}
