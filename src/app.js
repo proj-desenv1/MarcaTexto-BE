@@ -13,7 +13,8 @@ const app = express();
 
 //Express middleware configuration
 app.set('port', process.env.PORT || 3000);
-app.set('set', process.env.HOST || "localhost");
+app.set('host', process.env.HOST || "localhost");
+
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
