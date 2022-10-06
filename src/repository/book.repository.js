@@ -7,7 +7,7 @@ const googleApiUrl = "https://www.googleapis.com/books/v1";
 
 exports.searchBooks = async (query) => {
     const requestUrl = `${googleApiUrl}/volumes?q=${query}&key=${process.env.GOOGLE_API_KEY}`;
-    const googleResponse = await axios.get(requestUrl).catch(axiosErrorHandler);
+    const googleResponse = await axios.get(requestUrl).catch((err) => axiosErrorHandler(err, requestUrl));
     const books = googleResponse.data.items || [];
     if(!books.length) throw {status: 404, msg: "Search did not return any book"};
     const booksResponse = {

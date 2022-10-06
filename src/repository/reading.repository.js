@@ -31,7 +31,7 @@ exports.startReading = async (userId, bookId, googleId, readingStatus) => {
         if (googleId) {
             db.query("BEGIN")
             const requestUrl = `${googleApiUrl}/volumes/${googleId}?key=${process.env.GOOGLE_API_KEY}`;
-            const book = await axios.get(requestUrl).catch(axiosErrorHandler);
+            const book = await axios.get(requestUrl).catch((err) => axiosErrorHandler(err, requestUrl));
             const query = `insert into livros (liv_id_google, liv_titulo, liv_autor, liv_paginas, liv_editora, liv_data) ` +
                 `values ($1, $2, $3, $4, $5, NOW()) ` +
                 `ON CONFLICT (liv_id_google) DO UPDATE SET ` +
