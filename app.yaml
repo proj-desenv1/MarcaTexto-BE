@@ -10,6 +10,7 @@ env_variables:
     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
     NODE_ENV: production
     PORT: 3000
+    HOST: 0.0.0.0
     GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
 handlers:
