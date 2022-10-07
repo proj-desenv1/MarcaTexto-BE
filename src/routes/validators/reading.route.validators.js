@@ -13,8 +13,8 @@ module.exports = {
         notEmpty: true,
         errorMessage: "Status must not be null",
         isIn: {
-            options: [["Lendo", "Lido", "Quero ler"]],
-            errorMessage: "Invalid value for status. Accepted values: 'Lendo', 'Lido', 'Quero ler'"
+            options: [["Lendo", "Lidos", "Quero ler"]],
+            errorMessage: "Invalid value for status. Accepted values: 'Lendo', 'Lidos', 'Quero ler'"
           }
     }
 }

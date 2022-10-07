@@ -29,8 +29,8 @@ exports.searchBooks = async (query) => {
 
 exports.insertBook = async (book) => {
     const db = await pool.connect();
-    const query = `INSERT INTO livros (liv_id, liv_id_google, liv_titulo, liv_paginas, liv_editora, liv_edicao, liv_nm_arquivo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-    const values = [book.id, book.title, book.author, book.pages, book.publisher, book.edition, book.imagePath];
+    const query = `INSERT INTO livros (liv_id, liv_id_google, liv_titulo, liv_paginas, liv_editora, liv_edicao, liv_url_imagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+    const values = [book.id, book.title, book.author, book.pages, book.publisher, book.edition, book.imageUrl];
     try {
         return await db.query(query, values, (resp, error));
     } catch (err) {

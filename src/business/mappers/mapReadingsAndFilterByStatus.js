@@ -9,7 +9,7 @@ module.exports = (readings) => {
                 pages: r.liv_paginas,
                 publisher: r.liv_editora,
                 edition: r.liv_ediacao,
-                imageUrl: r.liv_nm_arquivo,
+                imageUrl: r.liv_url_imagem,
                 rating: r.clas_livro || null
             },
             readingStatus : {
@@ -23,7 +23,7 @@ module.exports = (readings) => {
     });
     return {
         reading: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Lendo"),
-        read: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Lido"),
+        read: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Lidos"),
         wantsToRead: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Quero ler"),
     };
 }
