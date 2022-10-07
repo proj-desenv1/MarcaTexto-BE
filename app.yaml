@@ -3,14 +3,14 @@ runtime: nodejs12
 instance_class: F2
 
 env_variables:
-    DB_PORT:  ${{ secrets.DB_PORT }}
-    DB_HOST:  ${{ secrets.DB_HOST }}
-    DB_NAME: ${{ secrets.DB_NAME }}
-    DB_USER: ${{ secrets.DB_USER }}
-    DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    DB_PORT:  $DB_PORT
+    DB_HOST:  $DB_HOST
+    DB_NAME: $DB_NAME
+    DB_USER: $DB_USER
+    DB_PASSWORD: $DB_PASSWORD
+    GOOGLE_API_KEY: $GOOGLE_API_KEY
     NODE_ENV: production
     HOST: 0.0.0.0
-    GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
 handlers:
 - url: /stylesheets

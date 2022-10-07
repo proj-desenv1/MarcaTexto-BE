@@ -1,12 +1,13 @@
 module.exports = {
     bookId : {
         isInt: true,
-        notEmpty: false,
+        optional: { options: { nullable: true } },
         errorMessage: "Invalid value for 'bookId'"
     }, 
     googleId : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'googleId'"
+        errorMessage: "Invalid value for 'googleId'",
+        optional: { options: { nullable: true } }
     }, 
     status : {
         notEmpty: true,
