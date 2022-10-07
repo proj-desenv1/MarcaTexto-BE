@@ -43,9 +43,11 @@ exports.startReading = async (userId, bookId, googleId, readingStatus) => {
                 `RETURNING *;`;
             const result = await db.query(query, [book.data.id, book.data.volumeInfo.title, book.data.volumeInfo.authors.join(", "), book.data.volumeInfo.pageCount, book.data.volumeInfo.publisher]);
             bookFk = result.rows[0].liv_id
-        }        
-        const query = `insert into leituras(uso_id, liv_id, status_id) values ($1, $2, $3) RETURNING *;`
-        const result = await db.query(query, [userId, bookFk, readingStatus]);
+        }
+        const statusQuery = `insert into status(uso_id, liv_id, sta_livro) values ($1, $2, $3) returning status_id`
+        const statusId = await db.query(statusQuery, [userId, bookFk, readingStatus]);
+        const query = `insert into leituras(uso_id, liv_id, status_id, clas_id) values ($1, $2, $3, null) RETURNING *;`
+        const result = await db.query(query, [userId, bookFk, statusId.rows[0].status_id]);
         await db.query("COMMIT");
         return result.rows;
     } catch (e) {
