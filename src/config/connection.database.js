@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-const Knex = require('knex');
+const { Pool } = require("pg");
 
 module.exports = new Pool({
   user: process.env.DB_USER,
