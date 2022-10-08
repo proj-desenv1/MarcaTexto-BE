@@ -15,7 +15,7 @@ exports.searchBooks = async (query) => {
             return {
                 googleId: book.id,
                 title: book.volumeInfo.title,
-                author: book.volumeInfo.authors.join(", "),
+                authors: book.volumeInfo.authors,
                 synopsis: book.volumeInfo.synopsis,
                 pageCount: book.volumeInfo.pageCount,
                 publisher: book.volumeInfo.publisher,
@@ -30,7 +30,7 @@ exports.searchBooks = async (query) => {
 exports.insertBook = async (book) => {
     const db = await pool.connect();
     const query = `INSERT INTO livros (liv_id, liv_id_google, liv_titulo, liv_paginas, liv_editora, liv_edicao, liv_url_imagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-    const values = [book.id, book.title, book.author, book.pages, book.publisher, book.edition, book.imageUrl];
+    const values = [book.id, book.title, book.authors, book.pages, book.publisher, book.edition, book.imageUrl];
     try {
         return await db.query(query, values, (resp, error));
     } catch (err) {
@@ -68,7 +68,7 @@ exports.updateBook = async (id, book) => {
     const db = await pool.connect();
     const query = `UPDATE livros set liv_titulo=$1, liv_autor=$2, liv_paginas=$3, liv_editora=$4 , liv_edicao=$5, liv_url_imagem=$6 WHERE liv_id=$7`;
     try {
-        return await db.query(db, [book.title, book.author, book.pageCount, book.publisher, book.edition, book.imagePath, id]);
+        return await db.query(db, [book.title, book.authors, book.pageCount, book.publisher, book.edition, book.imagePath, id]);
     } catch (e) {
         sqlErrorHandler(err);
     } finally {

@@ -5,7 +5,7 @@ module.exports = (readings) => {
                 id: r.liv_id,
                 googleId: r.liv_id_google || null,
                 title: r.liv_titulo,
-                author: r.liv_autor,
+                authors: r.liv_autor,
                 pages: r.liv_paginas,
                 publisher: r.liv_editora,
                 edition: r.liv_ediacao,
@@ -15,8 +15,8 @@ module.exports = (readings) => {
             readingStatus : {
                 currentStatus: r.sta_livro,
                 initialPage: r.sta_pag_inicio,
-                currentPage: r.sta_pag_atual,
-                readingTime: r.sta_temp_leitura
+                currentPage: r.sta_pag_atual || 0,
+                readingTime: r.sta_temp_leitura || "00:00:00"
             },
             readingObservation: r.obs_leitura
         }
