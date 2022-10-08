@@ -60,3 +60,15 @@ exports.deleteReading = async (req, resp, next) => {
         next(e);
     }
 }
+
+exports.updateBookStatus = async (req, resp, next) => {
+    try {
+        validationResult(req).throw()
+        const { bookId } = req.params;
+        const { currentStatus, initialPage, currentPage, readingTime } = req.body;
+        await readingBusiness.updateBookStatus(1, bookId, currentStatus, initialPage, currentPage, readingTime);
+        resp.sendStatus(204);
+    } catch(e) {
+        next(e);
+    }
+}

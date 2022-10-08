@@ -73,3 +73,28 @@ exports.deleteReading = async (userId, bookId) => {
         bd.release();
     }
 }
+
+exports.getStatusByBookId = async (userId, bookId) => {
+    const bd = await pool.connect();
+    const query = `SELECT * FROM status WHERE uso_id = $1 AND liv_id = $2`;
+    try {
+        const result = await(bd.query(query, [userId, bookId]));
+        return result.rows;
+    } catch(e) {
+        sqlErrorHandler(e);
+    } finally {
+        bd.release();
+    }
+}
+
+exports.updateBookStatus = async (statusId, status, initialPage, currentPage, readingTime) => {
+    const bd = await pool.connect();
+    const query = `UPDATE status SET sta_livro = $1, sta_pag_inicio = $2, sta_pag_atual = $3, sta_temp_leitura = $4 WHERE status_id = $5`;
+    try {
+        await(bd.query(query, [status, initialPage, currentPage, readingTime, statusId]));
+    } catch(e) {
+        sqlErrorHandler(e);
+    } finally {
+        bd.release();
+    }
+}

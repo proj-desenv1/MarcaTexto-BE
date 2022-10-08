@@ -1,4 +1,4 @@
-module.exports = (readings) => {
+exports.mapReadingsAndFilterByStatus = (readings) => {
     const mappedReadings = readings.map((r) => {
         return {
             book: {
@@ -12,12 +12,7 @@ module.exports = (readings) => {
                 imageUrl: r.liv_url_imagem,
                 rating: r.clas_livro || null
             },
-            readingStatus : {
-                currentStatus: r.sta_livro,
-                initialPage: r.sta_pag_inicio,
-                currentPage: r.sta_pag_atual || 0,
-                readingTime: r.sta_temp_leitura || "00:00:00"
-            },
+            readingStatus : this.mapStatus(r),
             readingObservation: r.obs_leitura
         }
     });
@@ -26,4 +21,13 @@ module.exports = (readings) => {
         read: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Lidos"),
         wantsToRead: mappedReadings.filter((r) => r.readingStatus.currentStatus.trim() == "Quero ler"),
     };
+}
+
+exports.mapStatus = (status) => {
+    return {
+        currentStatus: status.sta_livro,
+        initialPage: status.sta_pag_inicio,
+        currentPage: status.sta_pag_atual || 0,
+        readingTime: status.sta_temp_leitura || "00:00:00"
+    }
 }

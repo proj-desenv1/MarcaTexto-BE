@@ -1,25 +1,26 @@
+const { Result } = require("express-validator");
 const readingRepository = require("../repository/reading.repository");
-const readingsMapper = require("./mappers/mapReadingsAndFilterByStatus");
-const readingValidators = require("./validators/reading.validator")
+const readingsMapper = require("./mappers/reading.mappers");
+const readingValidators = require("./validators/reading.validator");
 
 exports.getAllReadings = async (userId) => {
     const readings = await readingRepository.getReadingsByUserId(userId);
-    return readingsMapper(readings)
+    return readingsMapper.mapReadingsAndFilterByStatus(readings);
 }
 
 exports.getReadingReadings = async (userId) => {
     const readings = await readingRepository.getReadingsByUserId(userId);
-    return readingsMapper(readings).reading
+    return readingsMapper.mapReadingsAndFilterByStatus(readings).reading;
 }
 
 exports.getReadReadings = async (userId) => {
     const readings = await readingRepository.getReadingsByUserId(userId);
-    return readingsMapper(readings).read
+    return readingsMapper.mapReadingsAndFilterByStatus(readings).read;
 }
 
 exports.getWantedReadings = async (userId) => {
     const readings = await readingRepository.getReadingsByUserId(userId);
-    return readingsMapper(readings).wantsToRead
+    return readingsMapper.mapReadingsAndFilterByStatus(readings).wantsToRead;
 }
 
 exports.startReading = async (userId, bookId, googleId, readingStatus) => {
@@ -29,4 +30,17 @@ exports.startReading = async (userId, bookId, googleId, readingStatus) => {
 
 exports.deleteReading = async (userId, bookId) => {
     await readingRepository.deleteReading(userId, bookId);
+}
+
+exports.updateBookStatus = async (userId, bookId, currentStatus, initialPage, currentPage, readingTime) => {
+    const bookStatus = await readingRepository.getStatusByBookId(userId, bookId);
+    readingValidators.validateStatusNotEmpty(bookStatus);
+    const mappedStatus = readingsMapper.mapStatus(bookStatus[0]);
+    await readingRepository.updateBookStatus(
+        bookStatus[0].status_id,
+        currentStatus || mappedStatus.currentStatus,
+        initialPage || mappedStatus.initialPage,
+        currentPage || mappedStatus.currentPage,
+        readingTime || mappedStatus.readingTime
+    );
 }
