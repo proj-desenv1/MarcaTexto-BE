@@ -5,9 +5,14 @@ const bookRoutes = express.Router();
 const path = "/readings";
 
 const { checkSchema } = require("express-validator")
-const startReadingSchema = require("./validators/reading.route.validators")
+const { startReadingSchema, deleteBookSchema, updateBookStatusSchema } = require("./validators/reading.route.validators")
 
-bookRoutes.get(path, readingController.getReadingsByUserId);
+bookRoutes.get(path, readingController.getAllReadings);
+bookRoutes.get(`${path}/reading`, readingController.getReadingReadings);
+bookRoutes.get(`${path}/read`, readingController.getReadReadings);
+bookRoutes.get(`${path}/wants-to-read`, readingController.getWantedReadings);
 bookRoutes.post(path, checkSchema(startReadingSchema), readingController.startReading);
+bookRoutes.delete(`${path}/:bookId`, checkSchema(deleteBookSchema), readingController.deleteReading);
+bookRoutes.put(`${path}/:bookId`, checkSchema(updateBookStatusSchema), readingController.updateBookStatus )
 
 module.exports = bookRoutes;
