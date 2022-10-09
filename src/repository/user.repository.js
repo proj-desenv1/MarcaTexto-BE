@@ -6,7 +6,7 @@ exports.findUserById = async (id) => {
     const query = "SELECT * FROM USUARIOS WHERE USO_ID = $1";
     try {
         const result = await db.query(query, [id]);
-        return result.rows;
+        return result.rowCount;
     } catch (e) {
         sqlErrorHandler(e);
     } finally {
