@@ -5,6 +5,7 @@ const helmet = require("helmet");
 
 const booksRoute = require("./routes/book.routes");
 const readingRoute = require("./routes/reading.routes");
+const userRoute = require("./routes/user.routes");
 const authenticationRoute = require("./routes/authentication.routes");
 const returnError = require("./controllers/utils/return-error");
 const swaggerUi = require("swagger-ui-express");
@@ -30,6 +31,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
 //Adding routes
 app.use(booksRoute);
 app.use(readingRoute);
+app.use(userRoute);
 app.use(authenticationRoute);
 
 app.use(returnError);
