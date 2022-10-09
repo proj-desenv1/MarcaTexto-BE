@@ -1,7 +1,7 @@
 const pool = require("../config/connection.database");
 const sqlErrorHandler = require("./utils/handle-sql-error");
 
-exports.findUserById = async (id) => {
+exports.checkUserExists = async (id) => {
     const db = await pool.connect();
     const query = "SELECT * FROM USUARIOS WHERE USO_ID = $1";
     try {
