@@ -17,3 +17,13 @@ exports.updateUser = async (id, name, email, password) => {
         throw { status: 404, msg: "No user found for given id."}
     }
 }
+
+exports.deleteUser = async (id) => {
+    const user = await userRepository.checkUserExists(id);
+
+    if (user === 1) {
+        await userRepository.deleteUser(id);
+    } else {
+        throw { status: 404, msg: "No user found for given id."}
+    }
+}

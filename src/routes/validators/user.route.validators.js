@@ -31,3 +31,10 @@ exports.updateUserSchema = {
         errorMessage: "Invalid value for 'password'"
     }
 }
+
+exports.deleteUserSchema = {
+    id : {
+        in: "params",
+        isInt: true
+    }
+}

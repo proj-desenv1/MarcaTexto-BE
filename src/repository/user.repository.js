@@ -41,3 +41,15 @@ exports.updateUser = async (id, name, email, password) => {
         db.release();
     }
 }
+
+exports.deleteUser = async (id) => {
+    const db = await pool.connect();
+    try {
+        const query = "DELETE FROM USUARIOS CASCADE WHERE USO_ID = $1";
+        await db.query(query, [id]);
+    } catch (e) {
+        sqlErrorHandler(e);
+    } finally {
+        db.release();
+    }
+}

@@ -25,3 +25,14 @@ exports.updateUser = async (req, resp, next) => {
         next(e);
     }
 }
+
+exports.deleteUser = async (req, resp, next) => {
+    try {
+        validationResult(req).throw()
+        const { id } = req.params;
+        await userBusiness.deleteUser(id);
+        resp.sendStatus(200);
+    } catch (e) {
+        next(e);
+    }
+}
