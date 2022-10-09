@@ -6,3 +6,14 @@ exports.createUser = async (name, email, password) => {
     userValidators.validateFields(name, email, password);
     await userRepository.createUser(name, email, password);
 }
+
+exports.updateUser = async (id, name, email, password) => {
+    userValidators.validateFields(name, email, password);
+    const user = await userRepository.checkUserExists(id);
+
+    if (user === 1) {
+        await userRepository.updateUser(id, name, email, password);
+    } else {
+        throw { status: 404, msg: "No user found for given id."}
+    }
+}
