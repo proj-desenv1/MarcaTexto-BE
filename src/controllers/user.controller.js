@@ -5,8 +5,8 @@ const { validationResult } = require("express-validator");
 exports.createUser = async (req, resp, next) => {
     try {
         validationResult(req).throw()
-        const {userName, userEmail, userPassword} = req.body;
-        await userBusiness.createUser(userName, userEmail, userPassword);
+        const { name, email, password } = req.body;
+        await userBusiness.createUser(name, email, password);
         resp.sendStatus(201);
     } catch(e) {
         next(e);

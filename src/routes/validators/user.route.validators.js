@@ -1,14 +1,14 @@
 exports.createUserSchema = {
-    userName : {
+    name : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'userName'"
+        errorMessage: "Invalid value for 'name'"
     }, 
-    userEmail : {
+    email : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'userEmail'"
+        errorMessage: "Invalid value for 'email'"
     }, 
-    userPassword : {
+    password : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'userPassword'"
+        errorMessage: "Invalid value for 'password'"
     }
 }
