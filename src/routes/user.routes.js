@@ -5,8 +5,8 @@ const userRoutes = express.Router();
 const path = "/users";
 
 const { checkSchema } = require("express-validator")
-const { createUser } = require("./validators/user.route.validators")
+const { createUserSchema } = require("./validators/user.route.validators")
 
-userRoutes.post(path, checkSchema(createUser), userController.createUser);
+userRoutes.post(path, checkSchema(createUserSchema), userController.createUser);
 
 module.exports = userRoutes;

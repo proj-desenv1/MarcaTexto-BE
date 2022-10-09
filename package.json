@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "errorhandler": "^1.5.1",
