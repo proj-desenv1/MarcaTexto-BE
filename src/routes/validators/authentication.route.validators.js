@@ -1,10 +1,10 @@
 exports.loginSchema = {
     email : {
-        notEmpty: false,
+        notEmpty: true,
         errorMessage: "Invalid value for 'email'"
     }, 
     password : {
-        notEmpty: false,
+        notEmpty: true,
         errorMessage: "Invalid value for 'password'",
     }
 }
