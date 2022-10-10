@@ -14,7 +14,7 @@ exports.updateUser = async (id, name, email, password) => {
     if (user === 1) {
         await userRepository.updateUser(id, name, email, password);
     } else {
-        throw { status: 404, msg: "No user found for given id."}
+        throw { status: 404, msg: "No user found for given id." }
     }
 }
 
@@ -24,6 +24,6 @@ exports.deleteUser = async (id) => {
     if (user === 1) {
         await userRepository.deleteUser(id);
     } else {
-        throw { status: 404, msg: "No user found for given id."}
+        throw { status: 404, msg: "No user found for given id." }
     }
 }
