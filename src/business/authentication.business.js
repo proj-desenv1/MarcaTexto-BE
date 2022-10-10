@@ -9,6 +9,6 @@ exports.login = async (email, password) => {
     if (user === 1) {
         await authenticationRepository.authUser(email, password);
     } else {
-        throw { status: 401, msg: "User not found."}
+        throw { status: 401, msg: "User not found." }
     }
 }
