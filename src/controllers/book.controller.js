@@ -10,3 +10,14 @@ exports.searchBooks = async(req, resp, next) => {
         next(error);
     }
 }
+
+exports.createBook = async (req, resp, next) => {
+    try {
+        validationResult(req).throw()
+        const { title, pages, publisher, image, author } = req.body;
+        await bookBusiness.createBook(title, pages, publisher, image, author);
+        resp.sendStatus(201);
+    } catch(e) {
+        next(e);
+    }
+}

@@ -75,3 +75,19 @@ exports.updateBook = async (id, book) => {
         db.release();
     }
 }
+
+exports.createBook = async (title, pages, publisher, image, author) => {
+    const db = await pool.connect();
+    try {
+        db.query("BEGIN")
+        const query = "INSERT INTO LIVROS (LIV_TITULO, LIV_PAGINAS, LIV_EDITORA, LIV_URL_IMAGEM, LIV_AUTOR) VALUES ($1, $2, $3, $4, $5)";
+        const result = await db.query(query, [title, pages, publisher, image, author]);
+        await db.query("COMMIT");
+        return result.rows;
+    } catch (e) {
+        await db.query("ROLLBACK");
+        sqlErrorHandler(e);
+    } finally {
+        db.release();
+    }
+}

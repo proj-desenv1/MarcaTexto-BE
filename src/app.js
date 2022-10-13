@@ -29,10 +29,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
 
 //Adding routes
+app.use(authenticationRoute);
 app.use(booksRoute);
 app.use(readingRoute);
 app.use(userRoute);
-app.use(authenticationRoute);
 
 app.use(returnError);
 module.exports = app;
