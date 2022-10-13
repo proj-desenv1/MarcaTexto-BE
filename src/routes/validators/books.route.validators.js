@@ -11,6 +11,10 @@ exports.createBookSchema = {
         notEmpty: true,
         errorMessage: "Invalid value for 'publisher'"
     },
+    imageUrl : {
+        notEmpty: false,
+        errorMessage: "Invalid value for 'imageUrl'"
+    },
     author : {
         notEmpty: true,
         errorMessage: "Invalid value for 'author'"

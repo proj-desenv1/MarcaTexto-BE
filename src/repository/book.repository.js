@@ -76,12 +76,12 @@ exports.updateBook = async (id, book) => {
     }
 }
 
-exports.createBook = async (title, pages, publisher, image, author) => {
+exports.createBook = async (title, pages, publisher, imageUrl, author) => {
     const db = await pool.connect();
     try {
         db.query("BEGIN")
         const query = "INSERT INTO LIVROS (LIV_TITULO, LIV_PAGINAS, LIV_EDITORA, LIV_URL_IMAGEM, LIV_AUTOR) VALUES ($1, $2, $3, $4, $5)";
-        const result = await db.query(query, [title, pages, publisher, image, author]);
+        const result = await db.query(query, [title, pages, publisher, imageUrl, author]);
         await db.query("COMMIT");
         return result.rows;
     } catch (e) {

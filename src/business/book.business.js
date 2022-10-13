@@ -19,7 +19,7 @@ exports.updateBook = async(id, book) => {
     return await bookRepository.updateBook(id, book);
 }
 
-exports.createBook = async (title, pages, publisher, image, author) => {
+exports.createBook = async (title, pages, publisher, imageUrl, author) => {
     bookValidators.validateFields(title, pages, publisher, author);
-    return await bookRepository.createBook(title, pages, publisher, image, author);
+    return await bookRepository.createBook(title, pages, publisher, imageUrl, author);
 }
