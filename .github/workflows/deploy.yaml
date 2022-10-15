@@ -31,6 +31,7 @@ jobs:
         DB_USER: ${{ secrets.DB_USER }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        SECRET: ${{ secrets.SECRET }}
       with:
         app_yaml_path: "app.yaml"
 
