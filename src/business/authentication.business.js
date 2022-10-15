@@ -4,5 +4,6 @@ const authenticationValidators = require("./validators/authentication.validator"
 
 exports.login = async (email, password) => {
     authenticationValidators.validateFields(email, password);
-    await authenticationRepository.authUser(email, password);
+    const user = await authenticationRepository.authUser(email, password)
+    authenticationValidators.validateUser(user);
 }
