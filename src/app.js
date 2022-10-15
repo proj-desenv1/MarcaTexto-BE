@@ -30,8 +30,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 //Adding routes
 app.use(authenticationRoute);
-app.use(authenticationController.tokenValidation);
 app.use(userRoute);
+app.use(authenticationController.tokenValidation);
 app.use(booksRoute);
 app.use(readingRoute);
 
