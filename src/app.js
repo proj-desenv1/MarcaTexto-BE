@@ -1,40 +1,41 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-//Express middleware configuration
-app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || "localhost");
-
 const errorHandler = require("errorhandler");
-
 const helmet = require("helmet");
-const swaggerUi = require("swagger-ui-express");
-const docs = require("./docs.json")
 
 const booksRoute = require("./routes/book.routes");
 const readingRoute = require("./routes/reading.routes");
 const userRoute = require("./routes/user.routes");
 const authenticationRoute = require("./routes/authentication.routes");
-const newUser = require("./routes/newUser.routes");
-const authenticationController = require('./controllers/authentication.controller');
+const auth = require('./controllers/utils/validate-token');
+const returnError = require("./controllers/utils/return-error");
+const swaggerUi = require("swagger-ui-express");
+const docs = require("./docs.json")
 
+const app = express();
+
+//Express middleware configuration
+app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.HOST || "localhost");
+
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
+if (process.env.NODE_ENV === 'development') {
+    app.use(errorHandler());
+}
 
 //Set up documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(errorHandler());
-}
 //Adding routes
 app.use(authenticationRoute);
-app.use(newUser);
-app.use(authenticationController.tokenValidation);
+app.use(userRoute);
+app.use(auth.tokenValidation);
 app.use(userRoute);
 app.use(booksRoute);
 app.use(readingRoute);
 
+app.use(returnError);
 module.exports = app;

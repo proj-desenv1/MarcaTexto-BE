@@ -4,3 +4,9 @@ exports.validateFields = (email, password) => {
         throw err;
     }
 }
+
+exports.validateUser = (user) => {
+    if (user !== 1) {
+        throw { status: 401, msg: "Invalid e-mail or password" }
+    }
+}
