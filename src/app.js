@@ -15,6 +15,7 @@ const booksRoute = require("./routes/book.routes");
 const readingRoute = require("./routes/reading.routes");
 const userRoute = require("./routes/user.routes");
 const authenticationRoute = require("./routes/authentication.routes");
+const newUser = require("./routes/newUser.routes");
 const authenticationController = require('./controllers/authentication.controller');
 
 app.use(cors());
@@ -30,8 +31,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 //Adding routes
 app.use(authenticationRoute);
-app.use(userRoute);
+app.use(newUser);
 app.use(authenticationController.tokenValidation);
+app.use(userRoute);
 app.use(booksRoute);
 app.use(readingRoute);
 
