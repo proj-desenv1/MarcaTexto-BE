@@ -11,8 +11,168 @@
         }
     ],
     "paths": {
+        "/login": {
+            "post": {
+                "summary": "Authenticate user",
+                "description": "This route is responsable for authenticate users",
+                "tags": ["Login"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User e-mail"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ok",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "token": {
+                                                "type": "string",
+                                                "description": "JWT Token"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "summary": "Create user",
+                "description": "This route is responsable for create new users",
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "User name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User e-mail"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "put": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
+                "summary": "Update user",
+                "description": "This route is responsable for update users",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Numeric id of the user that will be deleted"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "User name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User e-mail"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
+                "summary": "Update user",
+                "description": "This route is responsable for delete users",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Numeric id of the user that will be deleted"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/books": {
             "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "Book Search",
                 "description" : "This route is responsable for fetching books from google books api",
                 "tags": ["Books"],
@@ -48,6 +208,9 @@
         },
         "/readings": {
             "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "List readings",
                 "description" : "This route is responsible for fetching saved books separated by reading status",
                 "tags": ["Readings"],
@@ -66,6 +229,9 @@
                 }
             },
             "post": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "Insert a new reading",
                 "description" : "This route is responsible for inserting a new reading on user's book list with given status",
                 "tags": ["Readings"],
@@ -104,6 +270,9 @@
         },
         "/readings/reading": {
             "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "List readings with status 'Lendo'",
                 "description" : "This route is responsible for fetching saved books that contains status 'Lendo'",
                 "tags": ["Readings"],
@@ -127,6 +296,9 @@
         },
         "/readings/read": {
             "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "List readings with status 'Lidos'",
                 "description" : "This route is responsible for fetching saved books that contains status 'Lidos'",
                 "tags": ["Readings"],
@@ -150,6 +322,9 @@
         },
         "/readings/wants-to-read": {
             "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary" : "List readings with status 'Queo ler'",
                 "description" : "This route is responsible for fetching saved books that contains status 'Quero ler'",
                 "tags": ["Readings"],
@@ -173,6 +348,9 @@
         },
         "/readings/{bookId}": {
             "delete": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary": "Delete user's book readings with book id",
                 "description": "Route to delete a reading from user's list",
                 "tags": ["Readings"],
@@ -194,6 +372,9 @@
                 }
             },
             "put": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
                 "summary": "Update book reading status with book id",
                 "description": "Route to update book reading status with book id",
                 "tags": ["Readings"],
@@ -245,6 +426,13 @@
         }
     },
     "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-session-token"
+            }
+        },
         "schemas": {
             "Book" : {
                 "type" : "object",
@@ -386,5 +574,8 @@
                 }
             }
         }
+    },
+    "security": {
+        "ApiKeyAuth": []
     }
 }
