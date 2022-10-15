@@ -33,7 +33,6 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
 app.use(authenticationRoute);
 app.use(userRoute);
 app.use(auth.tokenValidation);
-app.use(userRoute);
 app.use(booksRoute);
 app.use(readingRoute);
 
