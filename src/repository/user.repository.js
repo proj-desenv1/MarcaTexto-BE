@@ -14,6 +14,19 @@ exports.checkUserExists = async (id) => {
     }
 }
 
+exports.checkEmailExists = async (email) => {
+    const db = await pool.connect();
+    const query = "SELECT * FROM USUARIOS WHERE USO_EMAIL = $1";
+    try {
+        const result = await db.query(query, [email]);
+        return result.rowCount;
+    } catch (e) {
+        sqlErrorHandler(e);
+    } finally {
+        db.release();
+    }
+}
+
 exports.createUser = async (name, email, password) => {
     const db = await pool.connect();
     try {
