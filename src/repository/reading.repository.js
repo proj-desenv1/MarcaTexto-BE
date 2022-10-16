@@ -32,19 +32,21 @@ exports.startReading = async (userId, bookId, googleId, readingStatus) => {
             db.query("BEGIN")
             const requestUrl = `${googleApiUrl}/volumes/${googleId}?key=${process.env.GOOGLE_API_KEY}`;
             const book = await axios.get(requestUrl).catch((err) => axiosErrorHandler(err, requestUrl));
-            const query = `insert into livros (liv_id_google, liv_titulo, liv_autor, liv_paginas, liv_editora, liv_url_imagem) ` +
-                `values ($1, $2, $3, $4, $5, $6) ` +
+            const query = `insert into livros (liv_id_google, liv_titulo, liv_autor, liv_paginas, liv_editora, liv_url_imagem, liv_desc) ` +
+                `values ($1, $2, $3, $4, $5, $6, $7) ` +
                 `ON CONFLICT (liv_id_google) DO UPDATE SET ` +
                 `liv_id_google = excluded.liv_id_google, ` +
                 `liv_titulo = excluded.liv_titulo, ` +
                 `liv_autor = excluded.liv_autor, ` +
                 `liv_paginas = excluded.liv_paginas, ` +
                 `liv_editora = excluded.liv_editora, ` +
-                `liv_url_imagem = excluded.liv_url_imagem ` +
+                `liv_url_imagem = excluded.liv_url_imagem, ` +
+                `liv_desc = excluded.liv_desc ` +
                 `RETURNING *;`;
             const result = await db.query(query, [
                 book.data.id, book.data.volumeInfo.title, book.data.volumeInfo.authors, book.data.volumeInfo.pageCount,
-                book.data.volumeInfo.publisher, book.data.volumeInfo.imageLinks ? book.data.volumeInfo.imageLinks.thumbnail : null
+                book.data.volumeInfo.publisher, book.data.volumeInfo.imageLinks ? book.data.volumeInfo.imageLinks.thumbnail : null,
+                book.data.volumeInfo.description
             ]);
             bookFk = result.rows[0].liv_id
         }
