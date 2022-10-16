@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 
 exports.getAllReadings = async (req, resp, next) => {
     try {
-        const readings = await readingBusiness.getAllReadings(1);
+        const readings = await readingBusiness.getAllReadings(req.userId);
         resp.json(readings);
     } catch(e) {
         next(e);
@@ -12,7 +12,7 @@ exports.getAllReadings = async (req, resp, next) => {
 
 exports.getReadingReadings = async (req, resp, next) => {
     try {
-        const readings = await readingBusiness.getReadingReadings(1);
+        const readings = await readingBusiness.getReadingReadings(req.userId);
         resp.json(readings);
     } catch(e) {
         next(e);
@@ -21,7 +21,7 @@ exports.getReadingReadings = async (req, resp, next) => {
 
 exports.getReadReadings = async (req, resp, next) => {
     try {
-        const readings = await readingBusiness.getReadReadings(1);
+        const readings = await readingBusiness.getReadReadings(req.userId);
         resp.json(readings);
     } catch(e) {
         next(e);
@@ -30,7 +30,7 @@ exports.getReadReadings = async (req, resp, next) => {
 
 exports.getWantedReadings = async (req, resp, next) => {
     try {
-        const readings = await readingBusiness.getWantedReadings(1);
+        const readings = await readingBusiness.getWantedReadings(req.userId);
         resp.json(readings);
     } catch(e) {
         next(e);
@@ -41,7 +41,7 @@ exports.startReading = async (req, resp, next) => {
     try {
         validationResult(req).throw()
         const {bookId, googleId, status} = req.body;
-        await readingBusiness.startReading(1, bookId, googleId, status);
+        await readingBusiness.startReading(req.userId, bookId, googleId, status);
         resp.sendStatus(201);
     } catch(e) {
         next(e);
@@ -52,8 +52,7 @@ exports.deleteReading = async (req, resp, next) => {
     try {
         validationResult(req).throw()
         const { bookId } = req.params;
-        console.log(bookId)
-        await readingBusiness.deleteReading(1, bookId);
+        await readingBusiness.deleteReading(req.userId, bookId);
         resp.sendStatus(204);
     } catch(e) {
         next(e);
@@ -65,7 +64,7 @@ exports.updateBookStatus = async (req, resp, next) => {
         validationResult(req).throw()
         const { bookId } = req.params;
         const { currentStatus, initialPage, currentPage, readingTime } = req.body;
-        await readingBusiness.updateBookStatus(1, bookId, currentStatus, initialPage, currentPage, readingTime);
+        await readingBusiness.updateBookStatus(req.userId, bookId, currentStatus, initialPage, currentPage, readingTime);
         resp.sendStatus(204);
     } catch(e) {
         next(e);
