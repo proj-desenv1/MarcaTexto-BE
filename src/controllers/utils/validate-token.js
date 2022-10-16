@@ -7,7 +7,6 @@ exports.tokenValidation = (req, resp, next) => {
         if (!token) return resp.status(401).json({ msg: "You don't have permission to do this request" });
 
         verify(token, process.env.SECRET, (e) => {
-            console.log(e)
             if (e) return resp.status(401).json({ msg: "Your session has expired" });
             next();
         });
