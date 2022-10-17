@@ -5,6 +5,7 @@ exports.mapReadingsAndFilterByStatus = (readings) => {
                 id: r.liv_id,
                 googleId: r.liv_id_google || null,
                 title: r.liv_titulo,
+                description: r.liv_desc,
                 authors: r.liv_autor,
                 pages: r.liv_paginas,
                 publisher: r.liv_editora,
@@ -25,7 +26,7 @@ exports.mapReadingsAndFilterByStatus = (readings) => {
 
 exports.mapStatus = (status) => {
     return {
-        currentStatus: status.sta_livro,
+        currentStatus: status.sta_livro.trim(),
         initialPage: status.sta_pag_inicio,
         currentPage: status.sta_pag_atual || 0,
         readingTime: status.sta_temp_leitura || "00:00:00"
