@@ -14,9 +14,9 @@ exports.searchBooks = async(req, resp, next) => {
 exports.createBook = async (req, resp, next) => {
     try {
         validationResult(req).throw()
-        const { title, pages, publisher, imageUrl, author } = req.body;
-        await bookBusiness.createBook(title, pages, publisher, imageUrl, author);
-        resp.sendStatus(201);
+        const { googleId, title, pages, publisher, imageUrl, author, description } = req.body;
+        const result = await bookBusiness.createBook(googleId, title, pages, publisher, imageUrl, author, description);
+        resp.status(201).json(result);
     } catch(e) {
         next(e);
     }
