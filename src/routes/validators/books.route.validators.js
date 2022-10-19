@@ -18,6 +18,10 @@ exports.createBookSchema = {
     author : {
         notEmpty: true,
         errorMessage: "Invalid value for 'author'"
+    },
+    description : {
+        notEmpty: false,
+        errorMessage: "Invalid value for 'description'"
     } 
     
 }

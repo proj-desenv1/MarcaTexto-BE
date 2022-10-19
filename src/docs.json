@@ -503,6 +503,10 @@
                         "type": "string",
                         "description": "Book title"
                     },
+                    "description": {
+                        "type": "string",
+                        "description": "Book description"
+                    },
                     "authors": {
                         "type": "array",
                         "items": {
@@ -568,6 +572,10 @@
                             },
                             "title" : {
                                 "description": "Book title",
+                                "type": "string"
+                            },
+                            "description" : {
+                                "description": "Book description",
                                 "type": "string"
                             },
                             "author" : {
