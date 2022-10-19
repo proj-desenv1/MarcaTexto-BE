@@ -204,6 +204,51 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
+                "summary": "Create books",
+                "description": "This route is responsable for create new books",
+                "tags": ["Books"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Book's title"
+                                    },
+                                    "pages": {
+                                        "type": "string",
+                                        "description": "Book's number page"
+                                    },
+                                    "publisher": {
+                                        "type": "string",
+                                        "description": "Book's Publisher"
+                                    },
+                                    "imageUrl": {
+                                        "type": "string",
+                                        "description": "Book's URL image (optional)"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "description": "Book's author"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
             }
         },
         "/readings": {
