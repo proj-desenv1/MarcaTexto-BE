@@ -1,13 +1,7 @@
 exports.startReadingSchema = {
     bookId : {
         isInt: true,
-        optional: { options: { nullable: true } },
         errorMessage: "Invalid value for 'bookId'"
-    }, 
-    googleId : {
-        notEmpty: false,
-        errorMessage: "Invalid value for 'googleId'",
-        optional: { options: { nullable: true } }
     }, 
     status : {
         notEmpty: true,
@@ -16,6 +10,23 @@ exports.startReadingSchema = {
             options: [["Lendo", "Lidos", "Quero ler"]],
             errorMessage: "Invalid value for status. Accepted values: 'Lendo', 'Lidos', 'Quero ler'"
           }
+    },
+    initialPage : {
+        isInt: true,
+        optional: { options: {nullable: true} },
+        errorMessage: "Invalid value for 'initialPage'"
+    },
+    currentPage : {
+        isInt: true,
+        optional: { options: {nullable: true} },
+        errorMessage: "Invalid value for 'currentPage'"
+    },
+    readingTime : {
+        optional: { options: { nullable: true } },
+        matches: {
+            options: (/^\d{2}:\d{2}:\d{2}$/)
+        },
+        errorMessage: "Reading time must be in format '00:00:00'"
     }
 }
 
