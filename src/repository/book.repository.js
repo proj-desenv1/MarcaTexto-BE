@@ -77,12 +77,13 @@ exports.updateBook = async (id, book) => {
     }
 }
 
-exports.createBook = async (title, pages, publisher, imageUrl, author, description) => {
+exports.createBook = async (googleId, title, pages, publisher, imageUrl, author, description) => {
     const db = await pool.connect();
     try {
         db.query("BEGIN")
-        const query = "INSERT INTO LIVROS (LIV_TITULO, LIV_PAGINAS, LIV_EDITORA, LIV_URL_IMAGEM, LIV_AUTOR, LIV_DESC) VALUES ($1, $2, $3, $4, $5, $6)";
-        const result = await db.query(query, [title, pages, publisher, imageUrl, author, description]);
+        const query = `INSERT INTO LIVROS (LIV_ID_GOOGLE, LIV_TITULO, LIV_PAGINAS, LIV_EDITORA, LIV_URL_IMAGEM, LIV_AUTOR, LIV_DESC) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+        const result = await db.query(query, [googleId, title, pages, publisher, imageUrl, author, description]);
         await db.query("COMMIT");
         return result.rows;
     } catch (e) {
