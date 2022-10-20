@@ -1,12 +1,15 @@
 const request = require("supertest");
 const { baseUri, basePathLogin } = require("../../app");
+const { invalidLogin } = require("../../utils/constant.utils");
 
 describe("POST/ Login", () => {
+    const email = "fulano@gmail.com";
+    const password = "12345"
     
     it("Valid e-mail and password", async () => {
         const requestBody = {
-            email: "fulano@gmail.com",
-            password: "12345"
+            email: email,
+            password: password
         };
         
         const response = await request(baseUri).post(basePathLogin).send(requestBody);
@@ -16,24 +19,24 @@ describe("POST/ Login", () => {
 
     it("Try to login with an invalid password", async () => {
         const requestBody = {
-            email: "fulano@gmail.com",
+            email: email,
             password: "123456"
         };
         
         const response = await request(baseUri).post(basePathLogin).send(requestBody);
         expect(response.statusCode).toBe(401);
-        expect(response.body.msg).toBe("Invalid e-mail or password");
+        expect(response.body.msg).toBe(invalidLogin);
     })
 
     it("Try to login with an invalid e-mail", async () => {
         const requestBody = {
             email: "fulano@teste.com",
-            password: "12345"
+            password: password
         };
         
         const response = await request(baseUri).post(basePathLogin).send(requestBody);
         expect(response.statusCode).toBe(401);
-        expect(response.body.msg).toBe("Invalid e-mail or password");
+        expect(response.body.msg).toBe(invalidLogin);
     })
 
     it("Try to login without request body", async () => {
