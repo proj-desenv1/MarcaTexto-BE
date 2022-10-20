@@ -1,6 +1,5 @@
 const request = require("supertest");
 const { baseUri, basePathLogin } = require("../app");
-const { findUserByEmail, deleteUser } = require("../../dao/users.dao");
 
 exports.loginUser = async (email, password) => {
     const requestBody = {
@@ -8,5 +7,6 @@ exports.loginUser = async (email, password) => {
         password: password
     };
     
-    return await request(baseUri).post(basePathLogin).send(requestBody);
+    const response = await request(baseUri).post(basePathLogin).send(requestBody);
+    return response.body
 }

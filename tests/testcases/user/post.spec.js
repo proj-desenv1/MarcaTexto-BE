@@ -1,6 +1,7 @@
 const request = require("supertest");
 const { baseUri, basePathUsers } = require("../../app");
 const { findUserByEmail, deleteUser } = require("../../dao/users.dao");
+const { unindentifiedError, invalidValueFor } = require("../../utils/constant.utils");
 
 describe("POST/ User", () => {
     const name = "Automation Test";
@@ -39,7 +40,7 @@ describe("POST/ User", () => {
         
         const response = await request(baseUri).post(basePathUsers).send(requestBody);
         expect(response.statusCode).toBe(400);
-        expect(response.body.msg).toBe("Unidentified error");
+        expect(response.body.msg).toBe(unindentifiedError);
     })
 
     it("Try to create new user without request body", async () => {
