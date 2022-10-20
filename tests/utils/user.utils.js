@@ -13,6 +13,8 @@ exports.createUser = async (name, email, password) => {
         
         const response = await request(baseUri).post(basePathUsers).send(requestBody);
         expect(response.statusCode).toBe(201);
+
+        return response.uso_id;
     }
 
     return user;

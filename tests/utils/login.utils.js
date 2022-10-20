@@ -8,5 +8,7 @@ exports.loginUser = async (email, password) => {
     };
     
     const response = await request(baseUri).post(basePathLogin).send(requestBody);
+    expect(response.statusCode).toBe(201);
+
     return response.body
 }

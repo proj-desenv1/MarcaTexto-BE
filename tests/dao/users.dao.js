@@ -1,12 +1,14 @@
 const pool = require("../../src/config/connection.database");
 const sqlErrorHandler = require("../../src/repository/utils/handle-sql-error");
 
-exports.findUserById = async (id) => {
+exports.countUserByEmail = async (email) => {
     const db = await pool.connect();
-    const query = "SELECT * FROM USUARIOS WHERE USO_ID = $1";
+    const query = "SELECT COUNT(1) AS CONT FROM USUARIOS WHERE USO_EMAIL = $1";
     try {
-        const result = await(db.query(query, [id]));
-        result.rowCount
+        const result = await(db.query(query, [email]));
+        if (result.rowCount > 0) {
+            return result.rows[0];
+        }
     } catch(e) {
         sqlErrorHandler(e);
     } finally {

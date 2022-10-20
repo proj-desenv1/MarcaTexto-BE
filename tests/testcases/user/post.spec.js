@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { baseUri, basePathUsers } = require("../../app");
 const { findUserByEmail, deleteUser } = require("../../dao/users.dao");
-const { unindentifiedError, invalidValueFor } = require("../../utils/constant.utils");
+const { unindentifiedError } = require("../../utils/constant.utils");
 
 describe("POST/ User", () => {
     const name = "Automation Test";
