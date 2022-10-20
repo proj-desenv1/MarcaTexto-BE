@@ -40,9 +40,9 @@ exports.getWantedReadings = async (req, resp, next) => {
 exports.startReading = async (req, resp, next) => {
     try {
         validationResult(req).throw()
-        const {bookId, googleId, status} = req.body;
-        await readingBusiness.startReading(req.userId, bookId, googleId, status);
-        resp.sendStatus(201);
+        const {bookId, status, initialPage, currentPage, readingTime} = req.body;
+        const result = await readingBusiness.startReading(req.userId, bookId, status, initialPage || 0, currentPage, readingTime);
+        resp.status(201).json(result);
     } catch(e) {
         next(e);
     }

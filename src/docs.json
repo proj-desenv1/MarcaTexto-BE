@@ -244,17 +244,30 @@
                                 "properties": {
                                     "bookId": {
                                         "type": "integer",
-                                        "nullable": "true",
-                                        "description": "Book id on our database. If null, google id must be provided"
-                                    },
-                                    "googleId": {
-                                        "type": "string",
-                                        "nullable": "true",
-                                        "description": "Google id"
+                                        "nullable": "false",
+                                        "description": "Book id on our database. "
                                     },
                                     "status": {
                                         "type": "string",
-                                        "enum": ["Lendo", "Lidos", "Quero ler"]
+                                        "enum": ["Lendo", "Lidos", "Quero ler"],
+                                        "nullable": "false",
+                                        "description": "Current reading status. Values accepted: Lendo, Lidos, Quero ler"
+                                    },
+                                    "initialPage": {
+                                        "type": "integer",
+                                        "nullable": "true",
+                                        "description": "Optional parameter for reading initial page"
+                                    },
+                                    "currentPage": {
+                                        "type": "integer",
+                                        "nullable": true,
+                                        "description": "Optional parameter for reading current page"
+                                    },
+                                    "readingTime": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "description": "Optional parameter for reading time",
+                                        "pattern": "^\\d{2}:\\d{2}:\\d{2}$"
                                     }
                                 }
                             }
@@ -263,7 +276,14 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "created"
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Reading"
+                                }
+                            }
+                        }
                     }
                 }
             }
