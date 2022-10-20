@@ -24,38 +24,34 @@ exports.getReadingsByUserId = async (userId) => {
     }
 }
 
-exports.startReading = async (userId, bookId, googleId, readingStatus) => {
-    const db = await pool.connect();
-    let bookFk = bookId
+exports.findReadingByBookId = async (userId, bookId) => {
+    const bd = await pool.connect();
+    const query = `SELECT * from leituras ` +
+    `JOIN livros on livros.liv_id = leituras.liv_id ` +
+    `JOIN usuarios on usuarios.uso_id = leituras.uso_id ` +
+    `LEFT JOIN classificacao on classificacao.liv_id = leituras.liv_id ` +
+    `JOIN status on status.status_id = leituras.status_id ` +
+    `WHERE leituras.uso_id = $1 AND leituras.liv_id = $2;`;
     try {
-        if (googleId) {
-            db.query("BEGIN")
-            const requestUrl = `${googleApiUrl}/volumes/${googleId}?key=${process.env.GOOGLE_API_KEY}`;
-            const book = await axios.get(requestUrl).catch((err) => axiosErrorHandler(err, requestUrl));
-            const query = `insert into livros (liv_id_google, liv_titulo, liv_autor, liv_paginas, liv_editora, liv_url_imagem, liv_desc) ` +
-                `values ($1, $2, $3, $4, $5, $6, $7) ` +
-                `ON CONFLICT (liv_id_google) DO UPDATE SET ` +
-                `liv_id_google = excluded.liv_id_google, ` +
-                `liv_titulo = excluded.liv_titulo, ` +
-                `liv_autor = excluded.liv_autor, ` +
-                `liv_paginas = excluded.liv_paginas, ` +
-                `liv_editora = excluded.liv_editora, ` +
-                `liv_url_imagem = excluded.liv_url_imagem, ` +
-                `liv_desc = excluded.liv_desc ` +
-                `RETURNING *;`;
-            const result = await db.query(query, [
-                book.data.id, book.data.volumeInfo.title, book.data.volumeInfo.authors, book.data.volumeInfo.pageCount,
-                book.data.volumeInfo.publisher, book.data.volumeInfo.imageLinks ? book.data.volumeInfo.imageLinks.thumbnail : null,
-                book.data.volumeInfo.description
-            ]);
-            bookFk = result.rows[0].liv_id
-        }
-        const statusQuery = `insert into status(uso_id, liv_id, sta_livro) values ($1, $2, $3) returning status_id`
-        const statusId = await db.query(statusQuery, [userId, bookFk, readingStatus]);
-        const query = `insert into leituras(uso_id, liv_id, status_id, clas_id) values ($1, $2, $3, null) RETURNING *;`
-        const result = await db.query(query, [userId, bookFk, statusId.rows[0].status_id]);
-        await db.query("COMMIT");
+        const result = await(bd.query(query, [userId, bookId]));
         return result.rows;
+    } catch(e) {
+        sqlErrorHandler(e);
+    } finally {
+        bd.release();
+    }
+}
+
+exports.startReading = async (userId, bookId, readingStatus, initialPage, currentPage, readingTime) => {
+    const db = await pool.connect();
+    try {
+        await db.query("BEGIN")
+        const statusQuery = `insert into status(uso_id, liv_id, sta_livro, sta_pag_inicio, sta_pag_atual, sta_temp_leitura) values ($1, $2, $3, $4, $5, $6) returning status_id`
+        const statusId = await db.query(statusQuery, [userId, bookId, readingStatus, initialPage, currentPage, readingTime]);
+        const query = `insert into leituras(uso_id, liv_id, status_id, clas_id) values ($1, $2, $3, null) RETURNING *;`
+        const result = await db.query(query, [userId, bookId, statusId.rows[0].status_id]);
+        await db.query("COMMIT");
+        return result.rows[0];
     } catch (e) {
         await db.query("ROLLBACK");
         sqlErrorHandler(e);

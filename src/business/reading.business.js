@@ -23,9 +23,10 @@ exports.getWantedReadings = async (userId) => {
     return readingsMapper.mapReadingsAndFilterByStatus(readings).wantsToRead;
 }
 
-exports.startReading = async (userId, bookId, googleId, readingStatus) => {
-    readingValidators.validateIds(bookId, googleId);
-    await readingRepository.startReading(userId, bookId, googleId, readingStatus);
+exports.startReading = async (userId, bookId, readingStatus, initialPage, currentPage, readingTime) => {
+    const reading = await readingRepository.startReading(userId, bookId, readingStatus, initialPage, currentPage, readingTime);
+    const result = await readingRepository.findReadingByBookId(userId, reading.liv_id);
+    return readingsMapper.mapReadings(result)
 }
 
 exports.deleteReading = async (userId, bookId) => {
