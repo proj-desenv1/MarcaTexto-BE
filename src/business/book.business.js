@@ -4,7 +4,7 @@ const { mapBook } = require("./mappers/book.mappers");
 
 exports.searchBooks = async (query) => {
     const books = await bookRepository.searchBooks(query);
-    return books;
+    return books.map(mapBook);
 }
 
 exports.insertBook = async (book) => {
