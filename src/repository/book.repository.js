@@ -58,7 +58,6 @@ exports.findBookById = async (id) => {
     const db = await pool.connect();
     const query = `SELECT * FROM livros WHERE liv_id = $1`;
     try {
-        console.log(id)
         const result = await db.query(query, [id]);
         return result.rows;
     } catch(e) {
