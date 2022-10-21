@@ -9,5 +9,7 @@ const { bookSearchSchema, createBookSchema } = require("./validators/books.route
 
 bookRoutes.get(path, checkSchema(bookSearchSchema), bookController.searchBooks);
 bookRoutes.post(path, checkSchema(createBookSchema), bookController.createBook);
+bookRoutes.get(`${path}/:bookId`, bookController.findBookById);
+bookRoutes.get(`${path}/googleId/:googleId`, bookController.findBookByGoogleId);
 
 module.exports = bookRoutes;

@@ -1,6 +1,6 @@
 const bookRepository = require("../repository/book.repository");
 const bookValidators = require("./validators/book.validator");
-const conn = require("../config/connection.database")
+const { mapBook } = require("./mappers/book.mappers");
 
 exports.searchBooks = async (query) => {
     const books = await bookRepository.searchBooks(query);
@@ -12,7 +12,16 @@ exports.insertBook = async (book) => {
 }
 
 exports.findBookById = async (id) => {
-    return await bookRepository.findBookById(id);
+    const result = await bookRepository.findBookById(id);
+    bookValidators.validateBook(result);
+    return await mapBook(result[0]);
+}
+
+
+exports.findBookByGoogleId = async (id) => {
+    const result = await bookRepository.findBookByGoogleId(id);
+    bookValidators.validateBook(result);
+    return await mapBook(result[0]);
 }
 
 exports.updateBook = async(id, book) => {

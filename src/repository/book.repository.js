@@ -43,11 +43,12 @@ exports.insertBook = async (book) => {
 
 exports.findBookByGoogleId = async (id) => {
     const db = await pool.connect();
-    const query = `SELECT liv_id as id, liv_id_google as googleId, liv_titulo as title, liv_paginas as pages, liv_editora as publisher, liv_edicao as edition, liv_url_imagem as imagePath, liv_desc as description FROM livros WHERE liv_id_google = $1`;
+    const query = `SELECT * FROM livros WHERE liv_id_google = $1`;
     try {
-        return await db.query(query, [id]);
+        const result = await db.query(query, [id]);
+        return result.rows;
     } catch(e) {
-        sqlErrorHandler(err);
+        sqlErrorHandler(e);
     } finally {
         db.release();
     }
@@ -55,11 +56,13 @@ exports.findBookByGoogleId = async (id) => {
 
 exports.findBookById = async (id) => {
     const db = await pool.connect();
-    const query = `SELECT liv_id as id, liv_id_google as googleId, liv_titulo as title, liv_paginas as pages, liv_editora as publisher, liv_edicao as edition, liv_url_imagem as imagePath, liv_desc as description FROM livros WHERE liv_id = $1`;
+    const query = `SELECT * FROM livros WHERE liv_id = $1`;
     try {
-        return await db.query(query, [id]);
+        console.log(id)
+        const result = await db.query(query, [id]);
+        return result.rows;
     } catch(e) {
-        sqlErrorHandler(err);
+        sqlErrorHandler(e);
     } finally {
         db.release();
     }
@@ -71,7 +74,7 @@ exports.updateBook = async (id, book) => {
     try {
         return await db.query(db, [book.title, book.authors, book.pageCount, book.publisher, book.edition, book.imagePath, book.description, id]);
     } catch (e) {
-        sqlErrorHandler(err);
+        sqlErrorHandler(e);
     } finally {
         db.release();
     }

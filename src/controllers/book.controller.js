@@ -21,3 +21,23 @@ exports.createBook = async (req, resp, next) => {
         next(e);
     }
 }
+
+exports.findBookById = async (req, resp, next) => {
+    try {
+        const { bookId } = req.params;
+        const result = await bookBusiness.findBookById(bookId);
+        resp.json(result);
+    } catch(e) {
+        next(e);
+    }
+}
+
+exports.findBookByGoogleId = async (req, resp, next) => {
+    try {
+        const { googleId } = req.params;
+        const result = await bookBusiness.findBookByGoogleId(googleId);
+        resp.json(result);
+    } catch(e) {
+        next(e);
+    }
+}
