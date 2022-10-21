@@ -24,7 +24,7 @@ exports.getReadingsByUserId = async (userId) => {
     }
 }
 
-exports.getReadingByBookId = async (userId, bookId) => {
+exports.findReadingByBookId = async (userId, bookId) => {
     const bd = await pool.connect();
     const query = `SELECT * from leituras ` +
     `JOIN livros on livros.liv_id = leituras.liv_id ` +
@@ -42,7 +42,7 @@ exports.getReadingByBookId = async (userId, bookId) => {
     }
 }
 
-exports.getReadingByGoogleId = async (userId, googleId) => {
+exports.findReadingByGoogleId = async (userId, googleId) => {
     const bd = await pool.connect();
     const query = `SELECT * from leituras ` +
     `JOIN livros on livros.liv_id = leituras.liv_id ` +
