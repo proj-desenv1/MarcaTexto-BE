@@ -70,3 +70,23 @@ exports.updateBookStatus = async (req, resp, next) => {
         next(e);
     }
 }
+
+exports.getReadingByBookId = async (req, resp, next) => {
+    try {
+        const { bookId } = req.params;
+        const result = await readingBusiness.getReadingByBookId(req.userId, bookId);
+        resp.json(result);
+    } catch(e) {
+        next(e);
+    }
+}
+
+exports.getReadingByGoogleId = async (req, resp, next) => {
+    try {
+        const { googleId } = req.params;
+        const result = await readingBusiness.getReadingByGoogleId(req.userId, googleId);
+        resp.json(result);
+    } catch(e) {
+        next(e);
+    }
+}

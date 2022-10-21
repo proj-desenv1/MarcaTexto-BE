@@ -553,6 +553,70 @@
                         }
                     }
                 }
+            },
+            "get": {
+                "security": [{
+                    "apiKeyAuth": []
+                }],
+                "summary": "Find reading by book id",
+                "description": "Finds readings by book id associated with user's id",
+                "tags": ["Readings"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "bookId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Numeric id of the book that will be deleted from user's list"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Reading"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/readings/googleId/{googleId}": {
+            "get": {
+                "security": [{
+                    "apiKeyAuth": []
+                }],
+                "summary": "Find reading by google id",
+                "description": "Finds readings by google id associated with user's id",
+                "tags": ["Readings"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "googleId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Numeric id of the book that will be deleted from user's list"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Reading"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },

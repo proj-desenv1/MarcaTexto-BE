@@ -11,3 +11,10 @@ exports.validateStatusNotEmpty = (status) => {
         throw err;
     }
  }
+
+ exports.validateReading = (reading) => {
+    if(!reading.length) {
+        const err = {status: 404, msg: "No reading found for given id."};
+        throw err;
+    }
+ }

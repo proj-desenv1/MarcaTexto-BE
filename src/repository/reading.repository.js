@@ -42,6 +42,24 @@ exports.findReadingByBookId = async (userId, bookId) => {
     }
 }
 
+exports.findReadingByGoogleId = async (userId, googleId) => {
+    const bd = await pool.connect();
+    const query = `SELECT * from leituras ` +
+    `JOIN livros on livros.liv_id = leituras.liv_id ` +
+    `JOIN usuarios on usuarios.uso_id = leituras.uso_id ` +
+    `LEFT JOIN classificacao on classificacao.liv_id = leituras.liv_id ` +
+    `JOIN status on status.status_id = leituras.status_id ` +
+    `WHERE leituras.uso_id = $1 AND livros.liv_id_google = $2;`;
+    try {
+        const result = await(bd.query(query, [userId, googleId]));
+        return result.rows;
+    } catch(e) {
+        sqlErrorHandler(e);
+    } finally {
+        bd.release();
+    }
+}
+
 exports.startReading = async (userId, bookId, readingStatus, initialPage, currentPage, readingTime) => {
     const db = await pool.connect();
     try {
