@@ -1,6 +1,7 @@
 exports.mapBook = (book) => {
     return {
-        googleId: book.liv_id,
+        id: book.liv_id,
+        googleId: book.liv_id_google,
         title: book.liv_titulo,
         authors: book.liv_autor,
         description: book.liv_desc,
