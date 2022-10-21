@@ -180,8 +180,8 @@
                     {
                         "in": "query",
                         "name": "q",
-                        "required" : true,
-                        "description": "Book search query",
+                        "required" : false,
+                        "description": "Book search query. Optional parameter to query books by title",
                         "schema": {
                             "type": "string"
                         }

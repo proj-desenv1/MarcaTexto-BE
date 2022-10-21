@@ -3,28 +3,19 @@ const axios = require("axios").default;
 const axiosErrorHandler = require("./utils/handle-axios-error");
 const sqlErrorHandler = require("./utils/handle-sql-error");
 const pool = require("../config/connection.database");
-const googleApiUrl = "https://www.googleapis.com/books/v1";
 
 exports.searchBooks = async (query) => {
-    const requestUrl = `${googleApiUrl}/volumes?q=${query}&key=${process.env.GOOGLE_API_KEY}`;
-    const googleResponse = await axios.get(requestUrl).catch((err) => axiosErrorHandler(err, requestUrl));
-    const books = googleResponse.data.items || [];
-    if(!books.length) throw {status: 404, msg: "Search did not return any book"};
-    const booksResponse = {
-        books: books.slice(0,10).map((book) => {
-            return {
-                googleId: book.id,
-                title: book.volumeInfo.title,
-                authors: book.volumeInfo.authors,
-                synopsis: book.volumeInfo.synopsis,
-                pageCount: book.volumeInfo.pageCount,
-                publisher: book.volumeInfo.publisher,
-                description: book.volumeInfo.description,
-                imageUrl: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null
-            };
-        })
-    };
-    return booksResponse;
+    const db = await pool.connect();
+    console.log(query)
+    const q = `SELECT * FROM livros WHERE LOWER(liv_titulo) like LOWER($1 || '%')`;
+    try {
+        const books = await db.query(q, [query]);
+        return books.rows;
+    } catch (err) {
+        sqlErrorHandler(err)
+    } finally {
+        db.release()
+    }
 } 
 
 
