@@ -64,8 +64,8 @@ exports.updateBookStatus = async (req, resp, next) => {
         validationResult(req).throw()
         const { bookId } = req.params;
         const { currentStatus, initialPage, currentPage, readingTime } = req.body;
-        await readingBusiness.updateBookStatus(req.userId, bookId, currentStatus, initialPage, currentPage, readingTime);
-        resp.sendStatus(204);
+        const updated = await readingBusiness.updateBookStatus(req.userId, bookId, currentStatus, initialPage, currentPage, readingTime);
+        resp.json(updated);
     } catch(e) {
         next(e);
     }
