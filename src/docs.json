@@ -219,6 +219,10 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
+                                    "googleId": {
+                                        "type": "string",
+                                        "description": "Book's Google Id"
+                                    },
                                     "title": {
                                         "type": "string",
                                         "description": "Book's title"
@@ -238,6 +242,10 @@
                                     "author": {
                                         "type": "string",
                                         "description": "Book's author"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Book's Sinopsis"
                                     }
                                 }
                             }
