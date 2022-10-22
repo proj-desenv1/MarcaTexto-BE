@@ -21,8 +21,8 @@ exports.findBookById = async (id) => {
 
 exports.findBookByGoogleId = async (id) => {
     const result = await bookRepository.findBookByGoogleId(id);
-    bookValidators.validateBook(result);
-    return await mapBook(result[0]);
+    const validated = bookValidators.validateBook(result);
+    return validated || await mapBook(result[0]);
 }
 
 exports.updateBook = async(id, book) => {
