@@ -36,7 +36,8 @@ exports.findBookByGoogleId = async (req, resp, next) => {
     try {
         const { googleId } = req.params;
         const result = await bookBusiness.findBookByGoogleId(googleId);
-        resp.json(result);
+        const status = result.status ? result.status : 200
+        resp.status(status).json(result);
     } catch(e) {
         next(e);
     }
