@@ -1,6 +1,7 @@
 const bookRepository = require("../repository/book.repository");
 const bookValidators = require("./validators/book.validator");
 const { mapBook } = require("./mappers/book.mappers");
+const { stringToArray } = require("./utils/convert-array");
 
 exports.searchBooks = async (query) => {
     const books = await bookRepository.searchBooks(query);
@@ -30,5 +31,5 @@ exports.updateBook = async(id, book) => {
 
 exports.createBook = async (googleId, title, pages, publisher, imageUrl, author, description) => {
     bookValidators.validateFields(title, pages, publisher, author);
-    return await bookRepository.createBook(googleId, title, pages, publisher, imageUrl, author, description);
+    return await bookRepository.createBook(googleId, title, pages, publisher, imageUrl, stringToArray(author), description);
 }
