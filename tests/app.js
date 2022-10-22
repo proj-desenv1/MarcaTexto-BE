@@ -1,5 +1,5 @@
-// const baseUri = "localhost:3000";
-const baseUri = "https://marca-texto.uc.r.appspot.com";
+const baseUri = "localhost:3000";
+// const baseUri = "https://marca-texto.uc.r.appspot.com";
 
 const basePathLogin = "/login";
 const basePathUsers = "/users";

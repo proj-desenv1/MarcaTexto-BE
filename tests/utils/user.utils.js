@@ -1,6 +1,7 @@
 const request = require("supertest");
 const { baseUri, basePathUsers } = require("../app");
 const { findUserByEmail } = require("../dao/users.dao");
+const { loginUser } = require("./login.utils");
 
 exports.createUser = async (name, email, password) => {
     const user = await findUserByEmail(email);
@@ -14,10 +15,10 @@ exports.createUser = async (name, email, password) => {
         const response = await request(baseUri).post(basePathUsers).send(requestBody);
         expect(response.statusCode).toBe(201);
 
-        return response.uso_id;
+        return response.body[0].uso_id;
     }
 
-    return user;
+    return user.uso_id;
 }
 
 exports.updateUser = async (userId, authToken, name, email, password) => {

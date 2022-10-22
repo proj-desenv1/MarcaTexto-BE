@@ -34,6 +34,9 @@ describe("PUT/ User", () => {
         
         const response = await request(baseUri).put(`${basePathUsers}/${global.userId}`).send(requestBody).set(header);
         expect(response.statusCode).toBe(200);
+        expect(response.body[0].uso_id).toBe(global.userId);
+        expect(response.body[0].uso_nome).toBe(updatedName);
+        expect(response.body[0].uso_email).toBe(updatedEmail);
 
         const user = await findUserByEmail(updatedEmail);
         expect(user.uso_id).toBe(global.userId);
@@ -81,7 +84,6 @@ describe("PUT/ User", () => {
 
         const response = await request(baseUri).put(`${basePathUsers}/0`).set(header);
         expect(response.statusCode).toBe(404);
-        console.log(response.body)
         expect(response.body.msg).toBe(notFoundUser);
     });
     
@@ -108,13 +110,13 @@ describe("PUT/ User", () => {
         const response = await request(baseUri).put(`${basePathUsers}/${global.userId}`).set(header);
         expect(response.statusCode).toBe(404);
         expect(response.body[0].location).toBe("body");
-        expect(response.body[0].msg).toBe("Invalid value for 'name'");
+        expect(response.body[0].msg).toBe("Valor inválido para 'name'");
         expect(response.body[0].param).toBe("name");
         expect(response.body[1].location).toBe("body");
-        expect(response.body[1].msg).toBe("Invalid value for 'email'");
+        expect(response.body[1].msg).toBe("Valor inválido para 'email'");
         expect(response.body[1].param).toBe("email");
         expect(response.body[2].location).toBe("body");
-        expect(response.body[2].msg).toBe("Invalid value for 'password'");
+        expect(response.body[2].msg).toBe("Valor inválido para 'password'");
         expect(response.body[2].param).toBe("password");
     });
 
