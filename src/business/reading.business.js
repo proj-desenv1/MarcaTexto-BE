@@ -44,6 +44,8 @@ exports.updateBookStatus = async (userId, bookId, currentStatus, initialPage, cu
         currentPage || mappedStatus.currentPage,
         readingTime || mappedStatus.readingTime
     );
+    const updated = await readingRepository.findReadingByBookId(userId, bookId);
+    return readingsMapper.mapReadings(updated)[0];
 }
 
 exports.getReadingByBookId = async (userId, bookId) => {

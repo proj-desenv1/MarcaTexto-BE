@@ -560,6 +560,18 @@
                             }
                         }
                     }
+                },
+                "responses": {
+                    "200": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Reading"
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "get": {
