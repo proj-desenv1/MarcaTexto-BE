@@ -1,31 +1,31 @@
 exports.createBookSchema = {
     googleId : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'googleId'"
+        errorMessage: "Valor inválido para 'googleId'"
     },
     title : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'title'"
+        errorMessage: "Valor inválido para 'title'"
     },
     pages : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'pages'"
+        errorMessage: "Valor inválido para 'pages'"
     }, 
     publisher : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'publisher'"
+        errorMessage: "Valor inválido para 'publisher'"
     },
     imageUrl : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'imageUrl'"
+        errorMessage: "Valor inválido para 'imageUrl'"
     },
     author : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'author'"
+        errorMessage: "Valor inválido para 'author'"
     },
     description : {
         notEmpty: false,
-        errorMessage: "Invalid value for 'description'"
+        errorMessage: "Valor inválido para 'description'"
     } 
     
 }

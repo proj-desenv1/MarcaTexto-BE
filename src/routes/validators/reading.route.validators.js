@@ -1,32 +1,32 @@
 exports.startReadingSchema = {
     bookId : {
         isInt: true,
-        errorMessage: "Invalid value for 'bookId'"
+        errorMessage: "Valor inválido para 'bookId'"
     }, 
     status : {
         notEmpty: true,
-        errorMessage: "Status must not be null",
+        errorMessage: "Status não pode ser nulo",
         isIn: {
             options: [["Lendo", "Lidos", "Quero ler"]],
-            errorMessage: "Invalid value for status. Accepted values: 'Lendo', 'Lidos', 'Quero ler'"
+            errorMessage: "Valor inválido para status. Valores aceitos: 'Lendo', 'Lidos', 'Quero ler'"
           }
     },
     initialPage : {
         isInt: true,
         optional: { options: {nullable: true} },
-        errorMessage: "Invalid value for 'initialPage'"
+        errorMessage: "Valor inválido para 'initialPage'"
     },
     currentPage : {
         isInt: true,
         optional: { options: {nullable: true} },
-        errorMessage: "Invalid value for 'currentPage'"
+        errorMessage: "Valor inválido para 'currentPage'"
     },
     readingTime : {
         optional: { options: { nullable: true } },
         matches: {
             options: (/^\d{2}:\d{2}:\d{2}$/)
         },
-        errorMessage: "Reading time must be in format '00:00:00'"
+        errorMessage: "Tempo de leitura deve possuir o formato '00:00:00'"
     }
 }
 
@@ -41,7 +41,7 @@ exports.updateBookStatusSchema = {
     currentStatus: {
         isIn: {
             options: [["Lendo", "Lidos", "Quero ler"]],
-            errorMessage: "Invalid value for status. Accepted values: 'Lendo', 'Lidos', 'Quero ler'"
+            errorMessage: "Valor inválido para status. Valores aceitos: 'Lendo', 'Lidos', 'Quero ler'"
           },
         optional: { options: { nullable: true } },
     },
@@ -58,7 +58,7 @@ exports.updateBookStatusSchema = {
         matches: {
             options: (/^\d{2}:\d{2}:\d{2}$/)
         },
-        errorMessage: "Reading time must be in format '00:00:00'"
+        errorMessage: "Tempo de leitura deve possuir o formato '00:00:00'"
     },
     bookId: {
         in: "params",
