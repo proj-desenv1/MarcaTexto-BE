@@ -47,3 +47,15 @@ exports.updateBookStatus = async (userId, bookId, currentStatus, initialPage, cu
     const updated = await readingRepository.findReadingByBookId(userId, bookId);
     return readingsMapper.mapReadings(updated)[0];
 }
+
+exports.getReadingByBookId = async (userId, bookId) => {
+    const result = await readingRepository.findReadingByBookId(userId, bookId);
+    readingValidators.validateReading(result);
+    return readingsMapper.mapReadings(result)[0];
+}
+
+exports.getReadingByGoogleId = async (userId, googleId) => {
+    const result = await readingRepository.findReadingByGoogleId(userId, googleId);
+    readingValidators.validateReading(result);
+    return readingsMapper.mapReadings(result)[0];
+}
