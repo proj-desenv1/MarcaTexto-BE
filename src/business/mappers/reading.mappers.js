@@ -16,7 +16,7 @@ exports.mapStatus = (status) => {
     }
 }
 
-exports.mapReadings = (readings) => {
+exports.mapReadings = (readings, status) => {
 
     return readings.map((r) => {
         return {
@@ -29,10 +29,10 @@ exports.mapReadings = (readings) => {
                 pages: r.liv_paginas,
                 publisher: r.liv_editora,
                 imageUrl: r.liv_url_imagem,
-                rating: r.clas_livro || null
+                rating: r.clas_id || null
             },
-            readingStatus : this.mapStatus(r),
-            readingObservation: r.obs_leitura
+            readingStatus : status,
+            // readingObservation: r.obs_leitura
         }
     });
 }
