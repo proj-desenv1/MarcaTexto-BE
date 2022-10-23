@@ -69,6 +69,7 @@ exports.startReading = async (userId, bookId, readingStatus, initialPage, curren
         const query = `insert into leituras(uso_id, liv_id, status_id, clas_id) values ($1, $2, $3, null) RETURNING *;`
         const result = await db.query(query, [userId, bookId, statusId.rows[0].status_id]);
         await db.query("COMMIT");
+
         return result.rows[0];
     } catch (e) {
         await db.query("ROLLBACK");
