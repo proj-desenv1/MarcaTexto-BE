@@ -29,7 +29,7 @@ exports.startReading = async (userId, bookId, readingStatus, initialPage, curren
     
     const result = await readingRepository.findReadingByBookId(userId, reading.liv_id);
 
-    return readingsMapper.mapReadings(result);
+    return readingsMapper.mapReadings(result)[0];
 }
 
 exports.deleteReading = async (userId, bookId) => {
