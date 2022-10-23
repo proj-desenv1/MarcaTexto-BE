@@ -24,9 +24,7 @@ exports.getWantedReadings = async (userId) => {
 }
 
 exports.startReading = async (userId, bookId, readingStatus, initialPage, currentPage, readingTime) => {
-    
     const reading = await readingRepository.startReading(userId, bookId, readingStatus, initialPage, currentPage, readingTime);
-    
     const result = await readingRepository.findReadingByBookId(userId, reading.liv_id);
 
     return readingsMapper.mapReadings(result);
