@@ -7,7 +7,6 @@ exports.validateFields = (title, pages) => {
 
 exports.validateBook = (book) => {
     if(!book.length) {
-        const err = { status: 404, msg: "Livro não encontrado" };
-        throw err;
+        return { status: 204, msg: "Livro não encontrado" };
     }
 }
