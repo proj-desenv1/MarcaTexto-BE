@@ -80,9 +80,11 @@ exports.startReading = async (userId, bookId, readingStatus, initialPage, curren
 
 exports.deleteReading = async (userId, bookId) => {
     const bd = await pool.connect();
-    const query = `DELETE FROM leituras CASCADE WHERE uso_id = $1 and liv_id = $2`;
+    const readingsQuery = `DELETE FROM leituras CASCADE WHERE uso_id = $1 and liv_id = $2`;
+    const statusQuery = `DELETE FROM status CASCADE WHERE uso_id = $1 and liv_id = $2`;
     try {
-        const result = await(bd.query(query, [userId, bookId]));
+        await(bd.query(readingsQuery, [userId, bookId]));
+        await(bd.query(statusQuery, [userId, bookId]));
     } catch(e) {
         sqlErrorHandler(e);
     } finally {
