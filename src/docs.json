@@ -45,6 +45,10 @@
                                     {
                                         "type": "object",
                                         "properties": {
+                                            "uso_id": {
+                                                "type": "string",
+                                                "description": "Authenticated user id"
+                                            },
                                             "token": {
                                                 "type": "string",
                                                 "description": "JWT Token"
@@ -89,12 +93,82 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "uso_id": {
+                                                "type": "string",
+                                                "description": "User id"
+                                            },
+                                            "uso_nome": {
+                                                "type": "string",
+                                                "description": "User name"
+                                            },
+                                            "uso_email": {
+                                                "type": "string",
+                                                "description": "User e-mail"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
                     }
                 }
             }
         },
         "/users/{userId}": {
+            "get": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
+                "summary" : "Search user",
+                "description" : "This route is responsable for find users by id",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "required" : true,
+                        "description": "User search query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "uso_id": {
+                                                "type": "string",
+                                                "description": "User id"
+                                            },
+                                            "uso_nome": {
+                                                "type": "string",
+                                                "description": "User name"
+                                            },
+                                            "uso_email": {
+                                                "type": "string",
+                                                "description": "User e-mail"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
+                    }
+                }
+            },
             "put": {
                 "security": [{
                     "ApiKeyAuth": []
@@ -139,7 +213,30 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "uso_id": {
+                                                "type": "string",
+                                                "description": "User id"
+                                            },
+                                            "uso_nome": {
+                                                "type": "string",
+                                                "description": "User name"
+                                            },
+                                            "uso_email": {
+                                                "type": "string",
+                                                "description": "User e-mail"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
                     }
                 }
             },
@@ -163,7 +260,22 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "msg": {
+                                                "type": "string",
+                                                "description": "Confirmation message"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
                     }
                 }
             }

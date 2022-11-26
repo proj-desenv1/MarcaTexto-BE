@@ -1,15 +1,15 @@
 exports.createUserSchema = {
     name : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'name'"
+        errorMessage: "Valor inválido para 'name'"
     }, 
     email : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'email'"
+        errorMessage: "Valor inválido para 'email'"
     }, 
     password : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'password'"
+        errorMessage: "Valor inválido para 'password'"
     }
 }
 
@@ -20,19 +20,19 @@ exports.updateUserSchema = {
     },
     name : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'name'"
+        errorMessage: "Valor inválido para 'name'"
     }, 
     email : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'email'"
+        errorMessage: "Valor inválido para 'email'"
     }, 
     password : {
         notEmpty: true,
-        errorMessage: "Invalid value for 'password'"
+        errorMessage: "Valor inválido para 'password'"
     }
 }
 
-exports.deleteUserSchema = {
+exports.getUserSchema = {
     id : {
         in: "params",
         isInt: true
