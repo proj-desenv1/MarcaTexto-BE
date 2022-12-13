@@ -6,10 +6,11 @@ const userRoutes = express.Router();
 const path = "/users";
 
 const { checkSchema } = require("express-validator")
-const { getUserSchema, createUserSchema, updateUserSchema } = require("./validators/user.route.validators")
+const { getUserSchema, createUserSchema, updateUserSchema, resetPasswordSchema } = require("./validators/user.route.validators")
 
 userRoutes.get(`${path}/:id`, checkSchema(getUserSchema), auth.tokenValidation, userController.findUserById);
 userRoutes.post(path, checkSchema(createUserSchema), userController.createUser);
+userRoutes.put(`${path}/reset-password`, checkSchema(resetPasswordSchema), userController.resetPassword);
 userRoutes.put(`${path}/:id`, checkSchema(updateUserSchema), auth.tokenValidation, userController.updateUser);
 userRoutes.delete(`${path}/:id`, checkSchema(getUserSchema), auth.tokenValidation, userController.deleteUser);
 

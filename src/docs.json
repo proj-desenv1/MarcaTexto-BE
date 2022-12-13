@@ -283,6 +283,52 @@
                 }
             }
         },
+        "/users/reset-password": {
+            "put": {
+                "security": [{
+                    "ApiKeyAuth": []
+                }],
+                "summary" : "Reset user password",
+                "description" : "This route is responsable for replacing user's current password for a random one and sending it to user email",
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "user's email"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200": {
+                        "description": "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema":
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "msg": {
+                                                "type": "string",
+                                                "description": "Confirmation message"
+                                            }
+                                        }
+                                    }
+                            
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/books": {
             "get": {
                 "security": [{

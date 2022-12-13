@@ -45,3 +45,14 @@ exports.deleteUser = async (req, resp, next) => {
         next(e);
     }
 }
+
+exports.resetPassword = async (req, resp, next) => {
+    try{
+        validationResult(req).throw();
+        const { email } = req.body;
+        const msg = await userBusiness.resetPassword(email);
+        resp.status(200).json(msg);
+    } catch(e) {
+        next(e);
+    }
+}

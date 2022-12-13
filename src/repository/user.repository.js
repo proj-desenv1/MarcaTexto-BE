@@ -29,6 +29,19 @@ exports.checkEmailExists = async (email) => {
     }
 }
 
+exports.findUserByEmail = async (email) => {
+    const db = await pool.connect();
+    const query = "SELECT * FROM USUARIOS WHERE USO_EMAIL = $1";
+    try {
+        const result = await db.query(query, [email]);
+        return result.rows[0] || null;
+    } catch (e) {
+        sqlErrorHandler(e);
+    } finally {
+        db.release();
+    }
+}
+
 exports.findUserById = async (id) => {
     const db = await pool.connect();
     const query = "SELECT USO_ID, USO_NOME, USO_EMAIL FROM USUARIOS WHERE USO_ID = $1";
