@@ -6,5 +6,5 @@ exports.login = async (email, password) => {
     authenticationValidators.validateFields(email, password);
     const user = await authenticationRepository.authUser(email, password)
     const result = authenticationValidators.validateUser(user);
-    return result.uso_id;
+    return result;
 }
