@@ -38,3 +38,11 @@ exports.getUserSchema = {
         isInt: true
     }
 }
+
+exports.resetPasswordSchema = {
+    email: {
+        in: "body",
+        notEmpty: true,
+        errorMessage: "Valor inválido para 'email'"
+    }
+}
