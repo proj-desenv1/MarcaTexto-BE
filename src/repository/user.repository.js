@@ -90,9 +90,13 @@ exports.updateUser = async (id, name, email, password) => {
 
 exports.deleteUser = async (id) => {
     const db = await pool.connect();
+    const readingsQuery = "DELETE FROM LEITURAS CASCADE WHERE USO_ID = $1";
+    const statusQuery = "DELETE FROM STATUS CASCADE WHERE USO_ID = $1";
+    const userQuery = "DELETE FROM USUARIOS CASCADE WHERE USO_ID = $1";
     try {
-        const query = "DELETE FROM USUARIOS CASCADE WHERE USO_ID = $1";
-        await db.query(query, [id]);
+        await db.query(readingsQuery, [id]);
+        await db.query(statusQuery, [id]);
+        await db.query(userQuery, [id]);
     } catch (e) {
         sqlErrorHandler(e);
     } finally {
