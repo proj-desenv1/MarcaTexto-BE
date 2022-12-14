@@ -20,15 +20,18 @@ exports.updateUserSchema = {
     },
     name : {
         notEmpty: true,
-        errorMessage: "Valor inválido para 'name'"
+        errorMessage: "Valor inválido para 'name'",
+        optional: { options: {nullable: true} }
     }, 
     email : {
         notEmpty: true,
-        errorMessage: "Valor inválido para 'email'"
+        errorMessage: "Valor inválido para 'email'",
+        optional: { options: {nullable: true} }
     }, 
     password : {
         notEmpty: true,
-        errorMessage: "Valor inválido para 'password'"
+        errorMessage: "Valor inválido para 'password'",
+        optional: { options: {nullable: true} }
     }
 }
 
