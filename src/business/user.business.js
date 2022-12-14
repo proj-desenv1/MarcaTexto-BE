@@ -22,7 +22,7 @@ exports.updateUser = async (id, name, email, password) => {
     userValidators.validateUser(user);
     const userEmail = await userRepository.checkEmailExists(email);
     userValidators.validateEmail(userEmail);
-    return await userRepository.updateUser(id, name, email, password);
+    return await userRepository.updateUser(id, name || user.uso_nome, email || user.uso_email, password || user.uso_senha);
 }
 
 exports.deleteUser = async (id) => {

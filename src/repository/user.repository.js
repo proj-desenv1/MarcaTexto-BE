@@ -3,7 +3,7 @@ const sqlErrorHandler = require("./utils/handle-sql-error");
 
 exports.checkUserExists = async (id) => {
     const db = await pool.connect();
-    const query = "SELECT USO_ID, USO_NOME, USO_EMAIL FROM USUARIOS WHERE USO_ID = $1";
+    const query = "SELECT USO_ID, USO_NOME, USO_EMAIL, USO_SENHA FROM USUARIOS WHERE USO_ID = $1";
     try {
         const result = await db.query(query, [id]);
         if (result.rowCount > 0) {
